@@ -1,5 +1,5 @@
 FROM php:8.2-fpm
-LABEL maintainer="chin@oberon.nl"
+LABEL maintainer="jurriaanr@gmail.com"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TERM=xterm \
@@ -41,17 +41,13 @@ RUN install-php-extensions bcmath curl exif gd intl imagick ldap mbstring memcac
 # Install nodejs
 SHELL ["/bin/bash", "--login", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-RUN npm install -g yarn bower gulp pm2 svgo
+RUN npm install -g yarn pm2 svgo
 
 # Composer
 RUN \
-    curl https://getcomposer.org/composer-1.phar --output composer-1.phar && \
-    curl https://getcomposer.org/composer-2.phar --output composer-2.phar && \
-    mv composer-1.phar /usr/local/bin/composer-1 && \
-    mv composer-2.phar /usr/local/bin/composer && \
-    chmod +x /usr/local/bin/composer-1 && \
-    chmod +x /usr/local/bin/composer && \
-    ln -s /usr/local/bin/composer /usr/local/bin/composer-2
+    curl https://getcomposer.org/composer-2.phar --output composer.phar && \
+    mv composer.phar /usr/local/bin/composer && \
+    chmod +x /usr/local/bin/composer
 
 RUN echo "Europe/Amsterdam" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \
     touch /var/log/cron.log
