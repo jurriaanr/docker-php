@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.5-fpm
 LABEL maintainer="jurriaanr@gmail.com"
 
 ENV DEBIAN_FRONTEND=noninteractive \

@@ -65,7 +65,7 @@ services:
             - .:/app/:cached
 
     php:
-        image: jurriaanr/php:8.3-fpm
+        image: jurriaanr/php:8.5-fpm
         restart: always
         network_mode: "bridge"
         volumes:
@@ -102,7 +102,7 @@ For example, you can add a redis container and change the redis-settings in your
 ```
 services:
     php:
-        image: jurriaanr/php:8.3-fpm
+        image: jurriaanr/php:8.5-fpm
         network_mode: "bridge"
         environment:
             - "PHP_SESSION_SAVE_HANDLER=redis"
@@ -118,3 +118,21 @@ services:
 ```
 
 For development, set PHP_OPCACHE_REVALIDATE to "0", the default value "2" is somewhat of a tradeoff.
+
+# HOW TO UPDATE OR ADD NEW VERSION
+
+Create a new folder in the same naming scheme (php85 f.e.)
+Copy the files as used in the other folders and edit the Dockerfile
+
+Now build the image, tag it and deploy it
+
+    docker image build --network=host -t 8.6-fpm .
+    docker image tag 8.6-fpm jurriaanr/php:8.6-fpm
+    docker push jurriaanr/php:8.6-fpm
+
+Since 'latest' is only a tag, you may want to update it as well with the latest version
+
+    docker image tag 8.6-fpm jurriaanr/php:latest
+    docker push jurriaanr/php:latest
+
+You can see the result at https://hub.docker.com/repository/docker/jurriaanr/php/general
