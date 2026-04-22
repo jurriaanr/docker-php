@@ -136,3 +136,7 @@ Since 'latest' is only a tag, you may want to update it as well with the latest 
     docker push jurriaanr/php:latest
 
 You can see the result at https://hub.docker.com/repository/docker/jurriaanr/php/general
+
+Check the php version the build is based on:
+
+    docker run --rm jurriaanr/php:8.5-fpm php -v
